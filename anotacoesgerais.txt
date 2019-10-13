@@ -1,0 +1,46 @@
+Instrucoes 
+
+    1 Atribuição : X=<valor> ou Y=<valor> , onde valor é
+    numero inteiro e X e Y de uso geral 
+
+    2 Entrada e Saida : por E/S que faz vezes chamada ao 
+    sistema
+
+    3 Comando : tarefa executada pela maquina por COM 
+
+    4 Fim do programa : Remove o program da memoria execu
+    tada
+
+
+Status para processo : Executando, Pronto e Bloqueado
+
+Lista de processos prontos ordenada prioridade
+Lista de porcessos bloqueados ordem de chegada 
+
+Preempção sera rodada pelo escalonador, que executa 
+comandos como um interpretador
+
+Tabela de processos com todos programas que rodam 
+ao simultaneamente.
+
+Cada linha da tabela contera uma referancia para ao 
+Bloco de COntrole BCP 
+
+BCP tera todas informações necessaria para que o proce
+sso apos ser interrompido volte a rodar, como PC o 
+Estado do processo, prioridade estado dos registradores
+, referencia onde esta o codigo(String).
+
+Passos para execução do programas
+
+    Escalonador carrega cada bloco de comando na memori
+    a. 
+
+    Posiciona seu BCP na tabela de processos e na fila 
+    de porcessos prontos, seguindo a prioridade de acor
+    do com o arquivo "prioridade.txt" 
+
+Quando o programa estiver rodando deve respeitar sua fa
+tia de n_com(numero de comando) na execução que é dado 
+pelo "quantum.txt" numero de comandos sera simulacao
+do tempo 
