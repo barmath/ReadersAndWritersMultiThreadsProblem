@@ -2,14 +2,12 @@
 import java.io.*;
 import java.util.*;
 
+
 class Preparador {
 
-    private static String valorInicialX = "Y=0";
-    private static String valorInicialY = "X=0";
+    //Imput BD 
 
-    //private static LinkedList<String> BCP = new LinkedList();
- 
-    public static ArrayList<String> agrupadorDeCodigo(String endereco) throws Exception  {
+    public static ArrayList<String> agrupadorDePalavra(String endereco) throws Exception  {
 
 
         File file = new File(endereco);
@@ -26,27 +24,102 @@ class Preparador {
         return codigo;
 
     } 
-    public static void imputProcessos()  throws Exception {
+    public static void imputBD()  throws Exception {
 
-        String numeroDoProcesso = "01";
+        String enderoA = "../base/bd.txt" ;
 
-        String enderoA = "../processos/"+numeroDoProcesso+".txt" ;
-        ArrayList<String> subrotina = new ArrayList<String>();
+        ArrayList<String> base = new ArrayList<String>();
 
-        Processo processA = new Processo();
+        base = agrupadorDePalavra(enderoA);  
 
-        subrotina = agrupadorDeCodigo(enderoA);  
-
-        processA.mudaValores(valorInicialY);
-        processA.mudaValores(valorInicialX);
-
-        System.out.println(processA.x);
-        System.out.println(processA.y);
+        //System.out.println(base);
+        
            
     }
+
+    //InicializadorThreads 
+
+    public static Processo [] inicializaArrayDeThreads(){
+      
+      Processo obj [] = new Processo[100] ;
+
+      for(int i=0; i <100; i ++){
+
+        obj[i] = new Processo();
+        obj[i].setData("vazio");
+
+      }
+
+      return obj;
+
+    }
+
+    public static int numeroAleatorio(){
+        int numero = (int) (Math.random() * 100);
+        return numero;
+    }
+
+    public static Processo[] insereReaderEWriter(Processo[] objDeThreads,int nReaders,int nWriters){
+        // insere readers aleatoriamente na array de 100 threads
+        //if (nReaders!=0){
+
+            ArrayList<Integer> usados = new ArrayList<Integer>();
+            
+            for(int i=0; i<nReaders; i++){
+                int indiceR = numeroAleatorio();
+                if(usados.contains(indiceR)){
+                    indiceR = numeroAleatorio();
+                }else{
+                    usados.add(indiceR,indiceR);
+                    objDeThreads[indiceR].setData("Reader");
+                    //System.out.println(i+" : "+indiceR+" Reader");
+                }
+    
+            }
+
+        // else{
+            
+        // }
+
+        // insere writers na array de 100 threads
+        for(int i=0; nWriters!=0 && i<nWriters; i++){
+            int indiceR = numeroAleatorio();
+            if(usados.contains(indiceR)){
+                indiceR = numeroAleatorio();
+            }else{
+                usados.add(indiceR,indiceR);
+                objDeThreads[indiceR].setData("Readers");
+                //System.out.println(i+" : "+indiceR+" Writer");
+            }
+        }
+
+        System.out.println(usados);
+
+        return objDeThreads;
+    }
+
+
+    public static void mostrarClasses(Processo [] objDeThreads){
+
+       for(int i=0; i <100; i ++){
+          objDeThreads[i].showData();
+       }
+    }
+
+    public static void inicializadorThreads() throws Exception {
+
+        Processo objDeThreads [] = inicializaArrayDeThreads();
+
+        insereReaderEWriter(objDeThreads,50,50);
+
+        //mostrarClasses(objDeThreads);
+
+    }
+
 	public static void main(String [] args) throws Exception {
 
-        imputProcessos();
+        imputBD();
+        inicializadorThreads();
 
 	}
 }

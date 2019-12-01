@@ -1,11 +1,9 @@
-class Processo{
-  private static String a;
+class Processo extends Object {
+  String a;
   public void setData(String a){
     this.a = a;
   }
-  public static String getData(){
-  	return a;
-  }
+  public 
   public void showData(){
     System.out.println("Tipo da classe : "+a);
   }
