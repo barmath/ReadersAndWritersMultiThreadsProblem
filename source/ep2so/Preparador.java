@@ -5,7 +5,7 @@ class Preparador {
     // inicializa array para estrutura de dados
     public static ArrayList<String> base = new ArrayList<String>();
 
-    // insere array com as palavras de bd.txt 
+    // retorna array com as palavras de bd.txt 
     public static ArrayList<String> agrupadorDePalavra(String endereco) throws Exception {
         File file = new File(endereco);
         Scanner sc = new Scanner(file);
@@ -22,7 +22,7 @@ class Preparador {
     } 
 
     public static void imputBD()  throws Exception {
-        String enderoA = "../base/bd.txt" ;
+        String enderoA = "bd.txt" ;
         //ArrayList<String> base = new ArrayList<String>();
         base = agrupadorDePalavra(enderoA);  
         //System.out.println(base);
