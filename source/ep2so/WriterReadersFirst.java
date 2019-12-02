@@ -3,8 +3,12 @@ import java.text.BreakIterator;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+/*
+Classe para acesso dos readers e writers
+*/
+
 class WriterReadersFirst {
-    
+
     static Preparador accessToBase = new Preparador();
     public static ArrayList<Integer> usedIndexes = new ArrayList<>();
     public static ArrayList<Integer> usedAcessDB = new ArrayList<>();
@@ -12,15 +16,17 @@ class WriterReadersFirst {
     static Semaphore x = new Semaphore(1);
     static Semaphore wsem = new Semaphore(1);
 
-    //Classes de Readers e Writers 
+    // Classe de Read
     static class Read implements Runnable {
         @Override
         public void run() {
             try {
-                x.acquire();
+                x.acquire(); // thread x fazer leitura
                 readerCount++;
-                if (readerCount == 1) wsem.acquire();
-                x.release();
+                if (readerCount == 1) wsem.acquire(); // thread wsem fazer leitura
+                x.release(); // thread x liberada
+
+                // 
                 for(int i = 0; i<100 ; i++){
                     //System.out.println("Thread "+Thread.currentThread().getName() + " is READING");
                     int indexToRead =  validAccess(usedAcessDB);
@@ -37,12 +43,13 @@ class WriterReadersFirst {
             }
         }
     }
-
+    
+    // Classe Write
     static class Write implements Runnable {
         @Override
         public void run() {
             try {
-                wsem.acquire();//<--Travando regiao critica antes 100 acessos
+                wsem.acquire(); //<--Trava regiao critica antes 100 acessos
                 for(int i=1; i<100 ; i++){
                     // try {
                         //System.out.println("Thread "+Thread.currentThread().getName() + " is WRITING");
@@ -73,19 +80,21 @@ class WriterReadersFirst {
         }
     }
 
-    //numeros aleatorios
+    // numero pseudoramdomico
     public static int numeroAleatorio(){
         int numero = (int) (Math.random() * 100);
         return numero;
     }
 
+    // random para thread
     public static int numeroAleatorioB(){
-        RandomNumberGenerator ramd = new RandomNumberGenerator();
+        //RandomNumberGenerator ramd = new RandomNumberGenerator();
         int tamanhoDaBase = accessToBase.base.size();
         int index = RandomNumberGenerator.usingThreadLocalClass(tamanhoDaBase);
         return index;
     }
 
+    // 
     public static int validAccess(ArrayList<Integer> useds){
         int index = numeroAleatorioB();
         if((useds.contains(index))){
