@@ -28,8 +28,8 @@ class WriterReadersFirst {
                 
                 
                 int indexToRead =  validAccess(usedAcessDB);
-                System.out.println(accessToBase.base.get(indexToRead));//<----Le valor na base
-
+                //System.out.println(accessToBase.base.get(indexToRead));//<----Le valor na base
+                accessToBase.base.get(indexToRead);
                 //System.out.println("Thread "+Thread.currentThread().getName() + " has FINISHED READING");
                 
                 x.acquire();
@@ -46,29 +46,34 @@ class WriterReadersFirst {
     static class Write implements Runnable {
         @Override
         public void run() {
-            // try {
-            //     for(int i=1; i<100 ; i++){
-
             try {
-                wsem.acquire();
-                //System.out.println("Thread "+Thread.currentThread().getName() + " is WRITING");
-                
-                
-                int indexToWrite =  validAccess(usedAcessDB);
-                System.out.println(accessToBase.base.get(indexToWrite));
+                wsem.acquire();//<--Travando regiao critica antes 100 acessos
 
-                accessToBase.base.set(indexToWrite,"MODIFICADO") ;//<----Muda valor na base
-                System.out.println(accessToBase.base.get(indexToWrite));
-                //System.out.println("Thread "+Thread.currentThread().getName() + " has finished WRITING");
-                wsem.release();
+                for(int i=1; i<100 ; i++){
+
+                    // try {
+                        
+                        System.out.println("Thread "+Thread.currentThread().getName() + " is WRITING");
+                        
+                        
+                        int indexToWrite =  validAccess(usedAcessDB);
+                        //System.out.println(accessToBase.base.get(indexToWrite));
+
+                        accessToBase.base.set(indexToWrite,"MODIFICADO") ;//<----Escreve valor na base
+
+                        //System.out.println(accessToBase.base.get(indexToWrite));
+                        System.out.println("Thread "+Thread.currentThread().getName() + " has finished WRITING at index "+indexToWrite);
+                        
+                    // } catch (InterruptedException e) {
+                    //     System.out.println(e.getMessage());
+                    // }
+                }  
+
+                Thread.sleep(1);
+                wsem.release(); //<--Liberando regiao critica depois 100 acessos
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
-               // }    
-            //     Thread.sleep(1);
-            // } catch (InterruptedException e) {
-            //     System.out.println(e.getMessage());
-            // }
         }
     }
 
