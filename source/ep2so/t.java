@@ -59,11 +59,12 @@ class t{
         // atribui reader ou writer de forma aleatoria no arranjo
         distribuiWR(arr,38);
 
-        int j = 0 ;
-        int k = 0 ;
         //System.out.println(used);
         System.out.println(usedIndexes);
 
+        // contador de reader e writer
+        int j = 0 ;
+        int k = 0 ;
         for(int i = 0; i < arr.length; i++){
             if(arr[i].equals("Reader"))
                 j++;

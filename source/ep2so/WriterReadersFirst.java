@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 class WriterReadersFirst {
+    
     static Preparador accessToBase = new Preparador();
     public static ArrayList<Integer> usedIndexes = new ArrayList<>();
     public static ArrayList<Integer> usedAcessDB = new ArrayList<>();
