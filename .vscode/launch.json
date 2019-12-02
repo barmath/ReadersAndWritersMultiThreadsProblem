@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Preparador",
+            "request": "launch",
+            "mainClass": "Preparador",
+            "projectName": "ReadersAndWritersMultiThreadsProblem_96cbdb25"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - WriterReadersFirst",
+            "request": "launch",
+            "mainClass": "WriterReadersFirst",
+            "projectName": "ReadersAndWritersMultiThreadsProblem_96cbdb25"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        }
+    ]
+}

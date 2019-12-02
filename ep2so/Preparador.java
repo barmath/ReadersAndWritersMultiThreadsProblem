@@ -29,10 +29,10 @@ class Preparador {
         System.out.println("Estrutura de base instanciada");
         //System.out.println(base.size());
     }
-	public static void main(String [] args) throws Exception {
+	/*public static void main(String [] args) throws Exception {
         //WriterReadersFirst wr = new WriterReadersFirst();
-        //imputBD();
+        imputBD();
         //inicializadorThreads();
         WriterReadersFirst.inicializador();
-	}
+	}*/
 }

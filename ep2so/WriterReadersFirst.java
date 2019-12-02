@@ -1,7 +1,7 @@
 import java.util.concurrent.Semaphore;
-import java.text.BreakIterator;
+//import java.text.BreakIterator;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit;
 
 /*
 Classe para acesso dos readers e writers
@@ -31,7 +31,7 @@ class WriterReadersFirst {
                     //System.out.println("Thread "+Thread.currentThread().getName() + " is READING");
                     int indexToRead =  validAccess(usedAcessDB);
                     //System.out.println(accessToBase.base.get(indexToRead));//<----Le valor na base
-                    accessToBase.base.get(indexToRead);
+                    Preparador.base.get(indexToRead);
                     //System.out.println("Thread "+Thread.currentThread().getName() + " has FINISHED READING");"
                 }
                 x.acquire();
@@ -55,7 +55,7 @@ class WriterReadersFirst {
                         //System.out.println("Thread "+Thread.currentThread().getName() + " is WRITING");
                         int indexToWrite =  validAccess(usedAcessDB);
                         //System.out.println(accessToBase.base.get(indexToWrite));
-                        accessToBase.base.set(indexToWrite,"MODIFICADO") ;//<----Escreve valor na base
+                        Preparador.base.set(indexToWrite,"MODIFICADO") ;//<----Escreve valor na base
                         //System.out.println(accessToBase.base.get(indexToWrite));
                        // System.out.println("Thread "+Thread.currentThread().getName() + " has finished WRITING at index "+indexToWrite);
                     // } catch (InterruptedException e) {
@@ -89,7 +89,7 @@ class WriterReadersFirst {
     // random para thread
     public static int numeroAleatorioB(){
         //RandomNumberGenerator ramd = new RandomNumberGenerator();
-        int tamanhoDaBase = accessToBase.base.size();
+        int tamanhoDaBase = Preparador.base.size();
         int index = RandomNumberGenerator.usingThreadLocalClass(tamanhoDaBase);
         return index;
     }
@@ -149,7 +149,7 @@ class WriterReadersFirst {
     }
 
     // Inicializacao geral do programa 
-    public static void inicializador(){
+    public static void main(String[] args){
         inicializaDB();
         Thread [] objDeThreads  = inicializaArrayDeThreads();
         long startTime = System.currentTimeMillis();
