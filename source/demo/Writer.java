@@ -1,8 +1,7 @@
 /**
   This class represents a writer.
 */
-public class Writer extends Thread
-{
+public class Writer extends Thread{
   private static int writers = 0; // number of writers
  
   private int number;
@@ -13,8 +12,7 @@ public class Writer extends Thread
  
     @param database database to which to write.
   */
-  public Writer(Database database)
-  {
+  public Writer(Database database){
     this.database = database;
     this.number = Writer.writers++;
   }
@@ -22,13 +20,10 @@ public class Writer extends Thread
   /**
     Writes.
   */
-  public void run()
-  {
-    while (true)
-    {
+  public void run(){
+    while (true){
       final int DELAY = 5000;
-      try
-      {
+      try{
         Thread.sleep((int) (Math.random() * DELAY));
       }
       catch (InterruptedException e) {}

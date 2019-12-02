@@ -3,8 +3,8 @@ class Processo extends Object {
   public void setData(String a){
     this.a = a;
   }
-  public 
+
   public void showData(){
-    System.out.println("Tipo da classe : "+a);
+    System.out.println("Tipo da classe : " + a);
   }
 }
