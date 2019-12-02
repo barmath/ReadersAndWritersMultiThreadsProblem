@@ -179,9 +179,8 @@ class WriterReadersFirst {
             long timeElapsed = endTime - startTime;
             sumTimes = sumTimes + timeElapsed;
         }
-        
-        long mediumTime;
-        return mediumTime = sumTimes / n;
+        // tirando media geral
+        return sumTimes = sumTimes / n;
     }
 
 
