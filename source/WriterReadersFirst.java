@@ -19,6 +19,7 @@ class WriterReadersFirst {
         @Override
         public void run() {
             try {
+
                 x.acquire();
                 readerCount++;
                 if (readerCount == 1) wsem.acquire();
@@ -71,6 +72,7 @@ class WriterReadersFirst {
 
                 Thread.sleep(1);
                 wsem.release(); //<--Liberando regiao critica depois 100 acessos
+
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
@@ -188,7 +190,7 @@ class WriterReadersFirst {
         }
 
     }
-    
+    //
     // Inicializacao geral do programa 
 
     public static void inicializador(){
@@ -201,15 +203,5 @@ class WriterReadersFirst {
         runReadersAndWriters(objDeThreads);
 
     }
-    
-
-    // public static void main(String[] args) throws Exception {
-
-        
-    //     inicializadorThreads();
-
-
-        
-        
-    // }
+ 
 }
