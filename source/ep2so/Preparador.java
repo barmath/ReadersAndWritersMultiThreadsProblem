@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.util.*;
 
@@ -7,17 +6,18 @@ class Preparador {
     public static ArrayList<String> base = new ArrayList<String>();
 
     // insere array com as palavras de bd.txt 
-    public static ArrayList<String> agrupadorDePalavra(String endereco) throws Exception  {
+    public static ArrayList<String> agrupadorDePalavra(String endereco) throws Exception {
         File file = new File(endereco);
         Scanner sc = new Scanner(file);
         ArrayList<String> codigo = new ArrayList<String>();
 
-        int j = 0;
+        //int j = 0;
         while (sc.hasNextLine()){
             //System.out.println(sc.nextLine());
             codigo.add(sc.nextLine());
-            j++;
+        //    j++;
         }
+        sc.close();
         return codigo;
     } 
 
