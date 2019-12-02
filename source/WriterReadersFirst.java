@@ -1,6 +1,7 @@
 import java.util.concurrent.Semaphore;
 import java.text.BreakIterator;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 class WriterReadersFirst {
 
@@ -54,7 +55,7 @@ class WriterReadersFirst {
 
                     // try {
                         
-                        System.out.println("Thread "+Thread.currentThread().getName() + " is WRITING");
+                        //System.out.println("Thread "+Thread.currentThread().getName() + " is WRITING");
                         
                         
                         int indexToWrite =  validAccess(usedAcessDB);
@@ -63,7 +64,7 @@ class WriterReadersFirst {
                         accessToBase.base.set(indexToWrite,"MODIFICADO") ;//<----Escreve valor na base
 
                         //System.out.println(accessToBase.base.get(indexToWrite));
-                        System.out.println("Thread "+Thread.currentThread().getName() + " has finished WRITING at index "+indexToWrite);
+                       // System.out.println("Thread "+Thread.currentThread().getName() + " has finished WRITING at index "+indexToWrite);
                         
                     // } catch (InterruptedException e) {
                     //     System.out.println(e.getMessage());
@@ -199,8 +200,17 @@ class WriterReadersFirst {
 
         Thread [] objDeThreads  = inicializaArrayDeThreads();
 
-        //insereReaderEWriter(objDeThreads);
+        long startTime = System.currentTimeMillis();
+
         runReadersAndWriters(objDeThreads);
+
+        long endTime = System.currentTimeMillis();
+
+        long timeElapsed = endTime - startTime;
+
+        System.out.println("tempo de execução total = "+timeElapsed);
+
+
 
     }
  
