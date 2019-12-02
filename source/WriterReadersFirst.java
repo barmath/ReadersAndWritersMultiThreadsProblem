@@ -25,14 +25,14 @@ class WriterReadersFirst {
                 if (readerCount == 1) wsem.acquire();
                 x.release();
 
-                //System.out.println("Thread "+Thread.currentThread().getName() + " is READING");
-                
-                
-                int indexToRead =  validAccess(usedAcessDB);
-                //System.out.println(accessToBase.base.get(indexToRead));//<----Le valor na base
-                accessToBase.base.get(indexToRead);
-                //System.out.println("Thread "+Thread.currentThread().getName() + " has FINISHED READING");
-                
+                for(int i = 0; i<100 ; i++){
+
+                    //System.out.println("Thread "+Thread.currentThread().getName() + " is READING");
+                    int indexToRead =  validAccess(usedAcessDB);
+                    //System.out.println(accessToBase.base.get(indexToRead));//<----Le valor na base
+                    accessToBase.base.get(indexToRead);
+                    //System.out.println("Thread "+Thread.currentThread().getName() + " has FINISHED READING");"
+                }
                 x.acquire();
                 readerCount--;
                 if (readerCount == 0) wsem.release();
