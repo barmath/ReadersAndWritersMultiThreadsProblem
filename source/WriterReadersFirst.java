@@ -7,6 +7,7 @@ class WriterReadersFirst {
     static Preparador accessToBase = new Preparador();
 
     public static ArrayList<Integer> usedIndexes = new ArrayList<>();
+    public static ArrayList<Integer> usedAcessDB = new ArrayList<>();
 
 	static int readerCount = 0;
     static Semaphore x = new Semaphore(1);
@@ -25,8 +26,9 @@ class WriterReadersFirst {
 
                 //System.out.println("Thread "+Thread.currentThread().getName() + " is READING");
                 
-
-                System.out.println(accessToBase.base.get(4565));//<----Le valor na base
+                
+                int indexToRead =  validAccess(usedAcessDB);
+                System.out.println(accessToBase.base.get(indexToRead));//<----Le valor na base
 
                 //System.out.println("Thread "+Thread.currentThread().getName() + " has FINISHED READING");
                 
@@ -52,8 +54,11 @@ class WriterReadersFirst {
                 //System.out.println("Thread "+Thread.currentThread().getName() + " is WRITING");
                 
                 
-                accessToBase.base.set(4565,"MODIFICADO") ;//<----Muda valor na base
+                int indexToWrite =  validAccess(usedAcessDB);
+                System.out.println(accessToBase.base.get(indexToWrite));
 
+                accessToBase.base.set(indexToWrite,"MODIFICADO") ;//<----Muda valor na base
+                System.out.println(accessToBase.base.get(indexToWrite));
                 //System.out.println("Thread "+Thread.currentThread().getName() + " has finished WRITING");
                 wsem.release();
             } catch (InterruptedException e) {
@@ -71,26 +76,58 @@ class WriterReadersFirst {
     //Instacia para tratar inicialização BD 
     
     public static void inicializaDB(){
+
         try{
             Preparador.imputBD();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
     }
 
+    //numeros aleatorios
     public static int numeroAleatorio(){
+
         int numero = (int) (Math.random() * 100);
         return numero;
+
     }
 
-    public static int validIndex(){
+    public static int numeroAleatorioB(){
+
+        RandomNumberGenerator ramd = new RandomNumberGenerator();
+
+        int tamanhoDaBase = accessToBase.base.size();
+
+        int index = RandomNumberGenerator.usingThreadLocalClass(tamanhoDaBase);
+
+        return index;
+    }
+
+    public static int validAccess(ArrayList<Integer> useds){
+
+        int index = numeroAleatorioB();
+
+        if((useds.contains(index))){
+            index = validAccess(useds);
+        }else{
+            useds.add(index);
+        }
+        
+        return index;
+
+    }
+
+    public static int validIndex(ArrayList<Integer> useds){
 
         int index = numeroAleatorio();
-        if((usedIndexes.contains(index))){
-            index = validIndex();
-        }
-        usedIndexes.add(index);
 
+        if((useds.contains(index))){
+            index = validIndex(useds);
+        }else{
+            useds.add(index);
+        }
+        
         return index;
 
     }
@@ -104,9 +141,9 @@ class WriterReadersFirst {
 
         for(int i = 0; i < nReaders; i++){
 
-            int index = validIndex();
+            int index = validIndex(usedIndexes);
             threads[index] = new Thread(read);
-            threads[index].setName("thread reader "+i);
+            threads[index].setName("reader "+i);
 
         }
 
@@ -114,9 +151,9 @@ class WriterReadersFirst {
 
         for(int i = 0; i < nWriters; i++){
 
-            int index = validIndex();
+            int index = validIndex(usedIndexes);
             threads[index] = new Thread(write);
-            threads[index].setName("thread writer "+i);
+            threads[index].setName("writer "+i);
 
         }
 
@@ -139,10 +176,10 @@ class WriterReadersFirst {
 
     public static void runReadersAndWriters(Thread [] t){
 
-        for(int i = 0;i<1;i++){
+        for(int i = 0;i<100;i++){
 
             t[i].start();
-            //join(); //implementar join 
+            
         }
 
     }

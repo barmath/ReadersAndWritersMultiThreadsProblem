@@ -19,32 +19,28 @@ class t{
         return numero;
     }
 
-    public static int validIndex(){
-
-        
+    public static int validIndex(ArrayList<Integer> used){
 
         int index = numeroAleatorio();
-        //System.out.println((usedIndexes.contains(index)));
-        if((usedIndexes.contains(index))){
-            index = validIndex();
+        if((used.contains(index))){
+            index = validIndex(used);
+        }else{
+            used.add(index);
         }
-        usedIndexes.add(index);
-
         return index;
-
     }
 
     public static String [] distribuiWR(String [] arr, int nReaders){
 
         for(int i = 0; i < nReaders; i++){
-            int index = validIndex();
+            int index = validIndex(usedIndexes);
             arr[index] = "Reader";
         }
 
         int nWriters = (arr.length-nReaders);
 
         for(int i = 0; i < nWriters; i++){
-            int index = validIndex();
+            int index = validIndex(usedIndexes);
             arr[index] = "Writer";
         }
         return arr;
@@ -61,6 +57,9 @@ class t{
 
         int j = 0 ;
         int k = 0 ;
+
+        //System.out.println(used);
+        System.out.println(usedIndexes);
 
         for(int i = 0; i < arr.length; i++){
             if(arr[i].equals("Reader"))

@@ -37,57 +37,11 @@ class Preparador {
 
         //System.out.println(base);
         System.out.println("base instanciada");
+        //System.out.println(base.size());
 
         
        
     }
-
-    //InicializadorThreads 
-
-    // public static Processo [] inicializaArrayDeThreads(){
-      
-    //   Processo obj [] = new Processo[100] ;
-
-    //   for(int i=0; i <100; i ++){
-
-    //     obj[i] = new Processo();
-    //     obj[i].setData("vazio");
-
-    //   }
-
-    //   return obj;
-
-    // }
-
-    // public static int numeroAleatorio(){
-    //     int numero = (int) (Math.random() * 100);
-    //     return numero;
-    // }
-
-    // public static Processo[] insereReaderEWriter(Processo[] objDeThreads,int nReaders){
-        
-        
-
-    //     return objDeThreads;
-    // }
-
-
-    // public static void mostrarClasses(Processo [] objDeThreads){
-
-    //    for(int i=0; i <100; i ++){
-    //       objDeThreads[i].showData();
-    //    }
-    // }
-
-    // public static void inicializadorThreads() throws Exception {
-
-    //     Processo objDeThreads [] = inicializaArrayDeThreads();
-
-    //     insereReaderEWriter(objDeThreads,50);
-
-    //     //mostrarClasses(objDeThreads);
-
-    // }
 
 	public static void main(String [] args) throws Exception {
 
