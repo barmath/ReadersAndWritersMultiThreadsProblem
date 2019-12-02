@@ -67,6 +67,7 @@ class WriterReadersFirst {
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
+        
         }
     }
 
@@ -115,7 +116,7 @@ class WriterReadersFirst {
         return index;
     }
 
-    //Distribuicao das threads de acordo com aleatoriedade 
+    //retorna arranjo de threads distribuidas aleatoriamente 
     public static Thread [] distribuiThreads(Thread [] threads, int nReaders){
         Read read = new Read();
         Write write = new Write();
@@ -137,7 +138,6 @@ class WriterReadersFirst {
     // COLOCAR NUMERO QUE O ARRAY DE THREADS TERA DE READERS 
     public static Thread [] inicializaArrayDeThreads(){
         Thread [] threads  = new Thread[100] ;
-        threads = distribuiThreads(threads,35);//<--COLOCAR NUMERO DE READERS
         return threads;
     }
 
@@ -150,13 +150,39 @@ class WriterReadersFirst {
 
     // Inicializacao geral do programa 
     public static void main(String[] args){
+
+        // constroi estrutura de dados
         inicializaDB();
+
+        // inicializa estrutura de threads
         Thread [] objDeThreads  = inicializaArrayDeThreads();
-        long startTime = System.currentTimeMillis();
-        runReadersAndWriters(objDeThreads);
-        long endTime = System.currentTimeMillis();
-        long timeElapsed = endTime - startTime;
-        System.out.println("tempo de execução total = "+timeElapsed);
+
+        // testara todas as opcoes de readers e writers
+        long a = 1;
+        for(int numberReaders = 100 ; numberReaders == 0 ; numberReaders--){
+            // distribui 100 readers ou writers aleatoriamente
+            objDeThreads = distribuiThreads(objDeThreads, numberReaders);
+            a = averageTime(objDeThreads, 50);
+        }
+        System.out.println("Tempo de execução total = " + a);
+
     }
- 
+
+    // calculo de tempo medio de acesso do arranjo de threads
+    public static long averageTime(Thread[] objDeThreads, int n){
+        // guardar a soma dos tempo para no fim calcular o tempo medio
+        long sumTimes = 0;
+        for(int i=0; i<n; i++){
+            long startTime = System.currentTimeMillis();
+            runReadersAndWriters(objDeThreads);
+            long endTime = System.currentTimeMillis();
+            long timeElapsed = endTime - startTime;
+            sumTimes = sumTimes + timeElapsed;
+        }
+        
+        long mediumTime;
+        return mediumTime = sumTimes / n;
+    }
+
+
 }
